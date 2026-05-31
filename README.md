@@ -12,7 +12,7 @@ A NestJS service that receives webhook events and guarantees idempotent processi
 
 ## How idempotency works
 
-The `IdempotencyInterceptor` ([src/idempotency/idempotency.intercepor.ts](src/idempotency/idempotency.intercepor.ts)) runs before the controller handler:
+The `IdempotencyInterceptor` ([src/idempotency/idempotency.interceptor.ts](src/idempotency/idempotency.interceptor.ts)) runs before the controller handler:
 
 1. If the request has no `Idempotency-Key` header, it passes through untouched.
 2. On first sight of a key, it stores `(key, sha256(body))` in the `idempotency_keys` table and lets the handler run. Once the handler resolves, it writes the response status code and body back onto the row.
@@ -120,7 +120,7 @@ src/
 ├── idempotency/
 │   ├── idempotency.module.ts
 │   ├── idempotency.service.ts         # CRUD on idempotency_keys
-│   └── idempotency.intercepor.ts      # The interceptor described above
+│   └── idempotency.interceptor.ts      # The interceptor described above
 ├── webhooks/
 │   ├── webhooks.module.ts
 │   ├── webhooks.controller.ts         # POST /webhooks
